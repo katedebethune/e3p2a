@@ -1,46 +1,34 @@
-//hw2CountWords.js
+/* CSCI E-3 Introduction to Web Programming Using Javascript
+ *
+ *
+ * Homework Unit #2A-5 Counting Words
+ *
+ * Kate de Bethune, March 19, 2015
+ * Please note: my solution does not count extraneous white spaces.
+ */
+
+'use strict';
 
 myWordsToCount.onkeyup = function() {	
-	// your code goes here
+	//string holds value of the "myWordsToCount" DOM element
 	var string = document.getElementById("myWordsToCount").value;
-	var count = 0, i = 1, arr = []; 
+	//counter, loop iterator, array to hold contents of string.split, limit.
+	var count = 0, i = 0, arr = [], len = arr.length; 
 	
+	//split the array on spaces
 	arr = string.split(" ");
+	//processing loop
 	for ( ; i < arr.length ; i++ ) {
-		count++;
+		//if the current value of arr is a space, continue
+		if ( arr[i].length == 0 ) {
+			continue;
+		}
+		//otherwise increment count at the beginning of the new word.
+		else {
+			++count;
+		}
 	}
-	console.log(count);
+	//write count to the innerHTML function for the wordcount id.
 	document.getElementById("wordcount").innerHTML = count;
-
 }
 
-/*
-function cnt(w,x){
-var y=w.value;
-var r = 0;
-a=y.replace(/\s/g,' ');
-a=a.split(' ');
-for (z=0; z<a.length; z++) {if (a[z].length > 0) r++;}
-x.value=r;
-} */
-
-/*
-<!DOCTYPE html>
-<html>
-<body>
-
-<p>A function is triggered when the user releases a key in the input field. The function outputs the actual key/letter that was released inside the text field.</p>
-
-Enter your name: <input type="text" id="fname" onkeyup="myFunction()">
-
-<p>My name is: <span id="demo"></span></p>
-
-<script>
-function myFunction() {
-    var x = document.getElementById("fname").value;
-    document.getElementById("demo").innerHTML = x;
-}
-</script>
-
-</body>
-</html> */

@@ -1,9 +1,9 @@
 /* CSCI E-3 Introduction to Web Programming Using Javascript
  *
  *
- * Homework Unit #2
+ * Homework Unit #2A - problem 6
  *
- *
+ * Kate de Bethune, March 19, 2015
  */
 
  /********************************************************************
@@ -38,7 +38,7 @@
   ********************************************************************/
 
 
-
+'use strict';
 /*
  * makeBlue - Reads data from an image bitmap array and writes new image data to a another array object
  *            The output data contains only blue pixel data, with other color values removed (set to 0).
@@ -49,28 +49,22 @@
  *            @output {array} - the bitmap data array to which the output image is written.
  *
  **/
+
 function makeBlue(original, output){
-      // YOUR CODE GOES HERE
-      var orig = original, out = output, i = 0, blue_const = 2, 
-      blue_count = 0, blue_value = 0, blue_color_value = 0, trans_const = 3,
-      trans_count = 0, trans_value = 0, len = orig.length;
-      
+      //orignal and output arrays, counter, and limit for loop.
+      var orig = original, out = output, i = 0, len = orig.length;
+      //constants
+      var blue = 2, alpha = 3, black = 0, num_channels = 4;
+      //processing loop
       for ( ; i < len ; i++ ) {
-      	blue_value = blue_const + blue_count * 4;
-      	trans_value = trans_const + trans_count * 4;
-      	if ( parseInt(blue_value / i ) == 1 && parseInt(blue_value % i) == 0 ){
-      		out[i] = 255;
-      		blue_color_value = orig[i];
-      		blue_count++;
-      	} 
-      	else if ( parseInt( trans_value / i ) == 1 && parseInt( trans_value % i ) == 0 ) {
+      	//writes current value for blue and alpha channels to output array
+      	if ( parseInt( (i - blue) % num_channels  ) == 0 || parseInt( (i - alpha) % num_channels ) == 0 ) {
       		out[i] = orig[i];
-      		trans_count++;
       	}
+      	//changes value of output array to black (0) for red and green channels
       	else {
-      		out[i] = blue_color_value;
+      		out[i] = black;
       	}
-      	//console.log("i = " + i + " blue_value = " + blue_value +  " out[" + i + "] = " + out[i]);
       }
       return out;
 }
@@ -86,17 +80,19 @@ function makeBlue(original, output){
  *
  **/
 function makeReverse(original, output){
-      // YOUR CODE GOES HERE
-      var orig = original, out = output, i = 0, trans_const = 3,
-      trans_count = 0, trans_value = 0, len = orig.length;
+      //orignal and output arrays, counter, and limit for loop.
+      var orig = original, out = output, i = 0, len = orig.length;
+      //constants
+      var alpha = 3, white = 255, num_channels = 4;
+      //main processing loop
        for ( ; i < len ; i++ ) {
-      	trans_value = trans_const + trans_count * 4;
-      	if ( parseInt( trans_value / i ) == 1 && parseInt( trans_value % i ) == 0 ) {
+      	//if alpha channel for px, write original value to output.
+      	if ( parseInt( (i - alpha) % num_channels ) == 0 ) {
       		out[i] = orig[i];
-      		trans_count++;
       	}
+      	//otherwise, reverse value by subtracting the original r, g, or b value from white.
       	else {
-      		out[i] = 255 - orig[i];
+      		out[i] = white - orig[i];
       	}
       }
       return out;
@@ -112,18 +108,21 @@ function makeReverse(original, output){
  *             @output {array} - the bitmap data array to which the output image is written.
  *
  **/
-
-function makeTransparent(original,output){
-      // YOUR CODE GOES HERE
-      var orig = original, out = output, i = 0, trans_const = 3,
-      trans_count = 0, trans_value = 0, factor = 0, len = orig.length;
-       for ( ; i < len ; i++ ) {
-      	trans_value = trans_const + trans_count * 4;
-      	if ( parseInt( trans_value / i ) == 1 && parseInt( trans_value % i ) == 0 ) {
-      		factor = parseInt(orig[i] / 2 );
+function makeTransparent(original, output){
+      //orignal and output arrays, counter, and limit for loop.
+      var orig = original, out = output, i = 0, len = orig.length;
+      //variable to hold modified alpha value
+      var factor = 0;
+      //constants
+      var alpha = 3, denom = 2, num_channels = 4;
+      //processing loop
+      for ( ; i < len ; i++ ) {
+      	//if alpha value for px, then divide by two to create 50% transparency.
+      	if ( parseInt( (i - alpha) % num_channels ) == 0 ) {
+      		factor = parseInt(orig[i] / denom );
       		out[i] = factor;
-      		trans_count++;
       	}
+      	// otherwise write original value to output array
       	else {
       		out[i] = orig[i];
       	}
@@ -148,9 +147,11 @@ function makeTransparent(original,output){
  *
  **/
 function loadComposite(original, secondOne, output){
-       // YOUR CODE GOES HERE
+	   //orignal, second, and output arrays, counter, and limit for loop.
        var orig = original, sec = secondOne, out = output, i = 0, len = orig.length;
+       //checks to make sure both input arrays are matching lengths
        if ( orig.length == sec.length ) {
+       	//processing loop, sums the r,g,b,a values for each px.
        	for ( ; i < len ; i++ ) {
       		out[i] = orig[i] + sec[i];
        	}

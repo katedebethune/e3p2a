@@ -1,10 +1,26 @@
-README.txt
+/*
+ * CSCI-E3, Spring 2015
+ * 
+ * Kate de Bethune, March 19, 2015
+ */
 
-CSCI E-3 Introduction to Web Programming Using Javascript
-Harvard University Extension School 
-HW#2a
+This submission contains the following files:
+* CSCIE3ProjectUnit2A.html
+* js/hw2ArrayImageProcessing.js
+* js/hw2ArrayImageProcessingSetup.js
+* js/hw2ConvertTemp.js
+* js/hw2CountWords.js
+* js/hw2PutAnX.js
+* js/hw2SplitString.js
+* js/hw2TwelveEvenFib.js
+* css/cscie3.css
+* img/*
+* README.txt
 
-This is a README file. It’s a common way for developers to provide basic information to each other about a program - how it works, technical user documentation, contact information for the author, copyright, etc. 
+Comments are found in the individual javascript files.
 
-To see the instructions for this assignment, open the file CSCIE3ProjectUnit2A.html in your browser and follow the directions.
+
+
+
+
 
